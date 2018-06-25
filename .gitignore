@@ -1,0 +1,7 @@
+# NPM files
+/node_modules/*
+
+
+# Private files
+.env*
+template.yaml

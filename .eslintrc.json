@@ -1,0 +1,16 @@
+{
+    "env": {
+        "es6": true,
+        "jest": true,
+        "node": true
+    },
+    "extends": [
+        "airbnb-base",
+        "eslint:recommended",
+        "plugin:jest/recommended"
+    ],
+    "plugins": [
+        "import",
+        "jest"
+    ]
+}
