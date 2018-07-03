@@ -1,8 +1,9 @@
 {
     "name": "aws-ses-email-redirect",
-    "version": "0.1.0-alpha",
-    "description": "AWS SES inbound email redirect service (based on S3 and Lambda function).",
-    "repository": "https://github.com/lcrea/aws-ses-email-redirect",
+    "version": "0.1.0",
+    "description": "AWS SES inbound email redirect service (based on S3 and Lambda function)",
+    "homepage": "https://github.com/lcrea/aws-ses-email-redirect",
+    "repository": "github:lcrea/aws-ses-email-redirect",
     "author": "Luca Crea",
     "license": "MIT",
     "main": "lambda/app.js",
@@ -18,8 +19,8 @@
     "devDependencies": {
         "eslint": "^4.19.1",
         "eslint-config-airbnb-base": "^12.1.0",
-        "eslint-plugin-import": "^2.12.0",
+        "eslint-plugin-import": "^2.13.0",
         "eslint-plugin-jest": "^21.17.0",
-        "jest": "^23.1.0"
+        "jest": "^23.2.0"
     }
 }
