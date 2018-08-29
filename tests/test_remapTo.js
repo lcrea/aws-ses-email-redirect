@@ -82,13 +82,30 @@ describe('Multiple destinations:', () => {
     test('if not in alias table => default address', () => {
         const address = new AddressTable(myDomain, defaultFrom, defaultTo);
         const sourceTo = [
-            `none@${myDomain}`,
+            `not-in-alias-table@${myDomain}`,
             'user-1@unknown.com',
             'user-2@different.com',
             'user-3@not-existent.com',
         ];
         const finalTo = remapTo(sourceTo, address);
         expect(finalTo).toEqual([defaultTo]);
+    });
+
+    test('one alias + default address', () => {
+        const address = new AddressTable(myDomain, defaultFrom, defaultTo, aliases);
+        const sourceTo = [
+            `info@${myDomain}`,
+            `not-in-alias-table@${myDomain}`,
+        ];
+        const finalTo = remapTo(sourceTo, address);
+        const expectedResult = [
+            aliases['info'],
+            defaultTo,
+        ];
+        expect(finalTo).toHaveLength(expectedResult.length);
+        expect(finalTo).toEqual(
+            expect.arrayContaining(expectedResult),
+        );
     });
 });
 

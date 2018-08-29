@@ -33,8 +33,12 @@ module.exports = (sourceTo, address) => {
         const mailbox = regexMailbox.exec(val)[2];
         const domain = regexMailbox.exec(val)[3];
 
-        if (mailbox in address.alias && domain == address.domain) {
-            emailTo.push(address.alias[mailbox]);
+        if (domain == address.domain) {
+            mailbox in address.alias
+            ?
+            emailTo.push(address.alias[mailbox])
+            :
+            emailTo.push(address.defaultTo);
         }
     });
 
