@@ -91,6 +91,50 @@ describe('Multiple destinations:', () => {
         expect(finalTo).toEqual([defaultTo]);
     });
 
+    test('avoid default address duplication', () => {
+        const address = new AddressTable(myDomain, defaultFrom, defaultTo);
+        const sourceTo = [
+            `not-in-alias-table-1@${myDomain}`,
+            `not-in-alias-table-2@${myDomain}`,
+            `not-in-alias-table-3@${myDomain}`,
+        ];
+        const finalTo = remapTo(sourceTo, address);
+
+        expect(finalTo).toHaveLength(1);
+        expect(finalTo).toEqual([defaultTo]);
+    });
+
+    test('deduplicate returned addresses', () => {
+        const sameAddress = 'same-address@gmail.com';
+        const sourceTo = [
+            `help@${myDomain}`,
+            `info@${myDomain}`,
+            `me@${myDomain}`,
+            `support@${myDomain}`,
+        ];
+
+        /**
+         * @example
+         * {
+         *  help: 'same-address@gmail.com',
+         *  info: 'same-address@gmail.com',
+         *  me: 'same-address@gmail.com',
+         *  support: 'same-address@gmail.com'
+         * }
+         */
+        const aliasesRepeated = sourceTo.reduce((curr, email) => {
+            const mailbox = email.slice(0, email.indexOf('@'));
+            curr[mailbox] = sameAddress;
+            return curr;
+        }, {});
+
+        const address = new AddressTable(myDomain, defaultFrom, defaultTo, aliasesRepeated);
+        const finalTo = remapTo(sourceTo, address);
+
+        expect(finalTo).toHaveLength(1);
+        expect(finalTo).toEqual([sameAddress]);
+    });
+
     test('one alias + default address', () => {
         const address = new AddressTable(myDomain, defaultFrom, defaultTo, aliases);
         const sourceTo = [

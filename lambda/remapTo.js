@@ -30,15 +30,19 @@ module.exports = (sourceTo, address) => {
     const emailTo = [];
 
     sourceTo.forEach(val => {
-        const mailbox = regexMailbox.exec(val)[2];
+        const inwardAddress = regexMailbox.exec(val)[2];
         const domain = regexMailbox.exec(val)[3];
 
         if (domain == address.domain) {
-            mailbox in address.alias
-            ?
-            emailTo.push(address.alias[mailbox])
-            :
-            emailTo.push(address.defaultTo);
+            const outwardAddress = inwardAddress in address.alias ?
+                address.alias[inwardAddress]
+                :
+                address.defaultTo;
+
+            // Deduplicate email addresses
+            if (emailTo.indexOf(outwardAddress) === -1) {
+                emailTo.push(outwardAddress);
+            }
         }
     });
 
