@@ -1,7 +1,7 @@
 {
     "name": "aws-ses-email-redirect",
-    "version": "0.1.0",
-    "description": "AWS SES inbound email redirect service (based on S3 and Lambda function)",
+    "version": "0.1.1",
+    "description": "AWS SES inbound email redirect service based on S3 and Lambda function",
     "homepage": "https://github.com/lcrea/aws-ses-email-redirect",
     "repository": "github:lcrea/aws-ses-email-redirect",
     "author": "Luca Crea",
